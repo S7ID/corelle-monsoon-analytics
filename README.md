@@ -6,7 +6,7 @@ Live, interactive analytics for the **Corelle India** Meta Ads account, built fo
 
 - Single self-contained `index.html` — no build step, no dependencies, theme-aware (light/dark), interactive hover tooltips.
 - **Data source:** Meta Ads API (live pull), window **11 Apr – 9 Jul 2026** (last 90 days). Generated **2026-07-10**.
-- **Scope:** Meta Ads only. GA4 / Clarity / Shopify order analytics aren't connected for Corelle yet, so revenue is Meta-attributed (spend × Purchase ROAS).
+- **Headline metric:** blended **MER** = all corelle.co.in revenue since a campaign's start ÷ ad spend over that period (site revenue live from Shopify). Meta's platform ROAS is a secondary optimisation signal only.
 
 ## What's inside
 - Headline KPIs (ROAS, spend, revenue, impressions, clicks, CTR, CPC, CPM, reach, last-30d)
@@ -19,9 +19,10 @@ Live, interactive analytics for the **Corelle India** Meta Ads account, built fo
 ## Headline (90 days)
 | Metric | Value |
 |---|---|
-| Purchase ROAS | 4.52× |
-| Ad spend | ₹1,03,977 |
-| Attributed revenue (est.) | ₹4,69,976 |
+| **Blended MER (90d)** | **14.8×** |
+| Site revenue (90d) | ₹15,41,174 · 292 orders · AOV ₹5,278 |
+| Ad spend (90d) | ₹1,03,977 |
+| Meta ROAS (platform signal) | 4.52× |
 | Impressions | 314,332 · Reach 95,973 |
 | CTR / CPC | 7.63% / ₹4.33 |
 

@@ -65,6 +65,10 @@
   .cmp-grid .s .v{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-top:3px}
   .card.cmp.islive{border-color:color-mix(in srgb, var(--good) 45%, var(--line));box-shadow:0 0 0 1px color-mix(in srgb, var(--good) 20%, transparent), var(--shadow)}
   .hi{color:var(--good)} .lo{color:var(--bad)} .mid{color:var(--amber)}
+  .mer{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--teal-soft);border-radius:11px;margin-bottom:15px}
+  .mer .ml{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--teal);line-height:1.15}
+  .mer .mv{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--teal)}
+  .mer .mf{font-size:10.5px;color:var(--muted);margin-left:auto;text-align:right;line-height:1.45}
   /* bar rows */
   .rows{display:flex;flex-direction:column;gap:9px}
   .row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:11px;cursor:default;border-radius:8px;padding:2px 4px;margin:-2px -4px}
@@ -131,34 +135,36 @@
   </header>
 
   <div class="scope">
-    <b>Scope:</b> Meta Ads performance (the live-connected source for Corelle India). Revenue is <b>Meta-attributed</b> (spend × Purchase ROAS). GA4 / Clarity / Shopify order analytics aren't yet connected for this store, so on-site behaviour &amp; blended revenue aren't included. Snapshot pulled <b>10 Jul 2026</b>.
+    <b>Scope:</b> Headline metric is <b>blended MER</b> = all corelle.co.in revenue since a campaign's start ÷ ad spend over that period (assumes all site revenue is marketing-driven). Site revenue is live from Shopify (292 orders / 90d); Meta's platform ROAS is shown only as a secondary optimisation signal. Snapshot pulled <b>10 Jul 2026</b>.
   </div>
 
   <h2>Campaign Split — Monsoon Mania vs Mother's Day</h2>
   <div class="grid2">
     <div class="card cmp islive">
       <div class="cmp-h"><span class="pill live"><span class="dotpulse"></span>Monsoon Mania · LIVE</span><span class="cmp-date">from 10 Jul 2026 · Day 1</span></div>
+      <div class="mer"><span class="ml">Blended<br>MER</span><span class="mv">18.1×</span><span class="mf">₹13,672 revenue<br>÷ ₹754 spend · 4 orders</span></div>
       <div class="cmp-grid">
-        <div class="s"><div class="k">Spend</div><div class="v">₹629</div></div>
-        <div class="s"><div class="k">Impressions</div><div class="v">2,852</div></div>
-        <div class="s"><div class="k">Clicks</div><div class="v">173</div></div>
+        <div class="s"><div class="k">Site Revenue</div><div class="v">₹13,672</div></div>
+        <div class="s"><div class="k">Orders</div><div class="v">4</div></div>
+        <div class="s"><div class="k">AOV</div><div class="v">₹3,418</div></div>
+        <div class="s"><div class="k">Ad Spend</div><div class="v">₹754</div></div>
         <div class="s"><div class="k">CTR</div><div class="v mid">6.07%</div></div>
-        <div class="s"><div class="k">CPC</div><div class="v">₹3.64</div></div>
-        <div class="s"><div class="k">ROAS</div><div class="v lo">1.75×</div></div>
+        <div class="s"><div class="k">Meta ROAS</div><div class="v lo">1.75×</div></div>
       </div>
-      <p class="cap" style="margin:16px 0 0">Launched today on the repurposed shell (5 creatives, ₹3,500/day). Day-1 ROAS is the <b>learning phase</b> — it climbs as the pixel optimises. Target to beat: <b>4.95×</b>.</p>
+      <p class="cap" style="margin:16px 0 0">MER counts <b>all site revenue since launch ÷ all ad spend</b> in the window. Meta's platform ROAS (1.75×, still learning) is just the optimisation signal. Mother's Day-period MER to beat: <b>15.9×</b>.</p>
     </div>
     <div class="card cmp">
       <div class="cmp-h"><span class="pill">Mother's Day 2026 · benchmark</span><span class="cmp-date">8 May – 9 Jul 2026</span></div>
+      <div class="mer"><span class="ml">Blended<br>MER</span><span class="mv">15.9×</span><span class="mf">₹15.41L revenue<br>÷ ₹97,039 spend · 292 orders</span></div>
       <div class="cmp-grid">
-        <div class="s"><div class="k">Spend</div><div class="v">₹40,643</div></div>
-        <div class="s"><div class="k">Impressions</div><div class="v">152,103</div></div>
-        <div class="s"><div class="k">Clicks</div><div class="v">12,872</div></div>
+        <div class="s"><div class="k">Site Revenue</div><div class="v">₹15.41L</div></div>
+        <div class="s"><div class="k">Orders</div><div class="v">292</div></div>
+        <div class="s"><div class="k">AOV</div><div class="v">₹5,278</div></div>
+        <div class="s"><div class="k">Ad Spend</div><div class="v">₹97,039</div></div>
         <div class="s"><div class="k">CTR</div><div class="v hi">8.46%</div></div>
-        <div class="s"><div class="k">CPC</div><div class="v">₹3.16</div></div>
-        <div class="s"><div class="k">ROAS</div><div class="v hi">4.95×</div></div>
+        <div class="s"><div class="k">Meta ROAS</div><div class="v hi">4.95×</div></div>
       </div>
-      <p class="cap" style="margin:16px 0 0">The proven seasonal run this campaign is cloned from — <b>4.95× ROAS at 8.46% CTR</b>, reach 58,389, frequency 2.60. The bar Monsoon Mania is chasing.</p>
+      <p class="cap" style="margin:16px 0 0">Full 8 May–9 Jul selling window (all campaigns blended; ad spend is <b>total account spend</b>, not just this campaign). Meta attributes 4.95×; blended MER of <b>15.9×</b> is the real business efficiency.</p>
     </div>
   </div>
 
@@ -171,14 +177,14 @@
 
   <h2>Account Headline · 90 Days <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">— all campaigns combined</span></h2>
   <div class="kpis">
-    <div class="kpi hero"><div class="k">Purchase ROAS</div><div class="v">4.52×</div><div class="d">Meta-attributed return</div></div>
+    <div class="kpi hero"><div class="k">Blended MER</div><div class="v">14.8×</div><div class="d">₹15.4L revenue ÷ ₹1.04L spend</div></div>
     <div class="kpi"><div class="k">Ad Spend</div><div class="v">₹1.04L</div><div class="d">₹1,03,977</div></div>
-    <div class="kpi"><div class="k">Attributed Revenue</div><div class="v">₹4.70L</div><div class="d">est. ₹4,69,976</div></div>
+    <div class="kpi"><div class="k">Site Revenue (90d)</div><div class="v">₹15.4L</div><div class="d">292 orders · AOV ₹5,278</div></div>
     <div class="kpi"><div class="k">Impressions</div><div class="v">314K</div><div class="d">Reach 95,973</div></div>
     <div class="kpi"><div class="k">Clicks</div><div class="v">23,987</div><div class="d">Frequency 3.28</div></div>
     <div class="kpi"><div class="k">CTR</div><div class="v">7.63%</div><div class="d">2–3× typical retail</div></div>
     <div class="kpi"><div class="k">CPC</div><div class="v">₹4.33</div><div class="d">cost per click</div></div>
-    <div class="kpi"><div class="k">CPM</div><div class="v">₹331</div><div class="d">per 1,000 impressions</div></div>
+    <div class="kpi"><div class="k">Meta ROAS</div><div class="v">4.52×</div><div class="d">platform signal (not MER)</div></div>
     <div class="kpi"><div class="k">Reach</div><div class="v">95,973</div><div class="d">Meta accounts</div></div>
     <div class="kpi"><div class="k">Last 30 days</div><div class="v">₹1,073</div><div class="d">near-dark → relaunch</div></div>
   </div>
@@ -246,11 +252,12 @@
         <tr><td class="name">Sales-Catalog · Mother's Day</td><td><span class="tag t-pause">Paused</span></td><td>₹778</td><td>1,661</td><td>5.90%</td><td>₹7.94</td><td>2.93×</td></tr>
       </tbody>
     </table>
-    <p class="cap" style="margin:14px 0 0"><b>Monsoon Mania</b> and <b>Mother's Day 2026</b> are the same campaign shell, date-split (from / to 10 Jul) — the Mother's Day run (4.95× ROAS) is the benchmark the live push is chasing. "Slow Movers" needs its delivery issue resolved before scaling.</p>
+    <p class="cap" style="margin:14px 0 0">ROAS here is <b>Meta platform-attributed</b> (per-campaign optimisation signal) — blended MER is period-level and lives in the campaign split up top. <b>Monsoon Mania</b> &amp; <b>Mother's Day 2026</b> are the same shell, date-split (from / to 10 Jul). "Slow Movers" needs its delivery issue resolved before scaling.</p>
   </div>
 
   <h2>What the Data Says</h2>
   <div class="insights">
+    <div class="ins win"><b>💰 MER 14.8× — the store runs on demand</b><p>Blended MER (₹15.4L revenue ÷ ₹1.04L spend) is ~3× Meta's attributed 4.52×. Paid is only ~7% of revenue — an accelerant on strong organic/repeat demand. Read MER for the business; use Meta ROAS only to steer delivery.</p></div>
     <div class="ins win"><b>🚀 Monsoon Mania is live &amp; delivering</b><p>Day 1: ₹629 spent, 6.07% CTR, Morning Blue leading at 8.41%. The 1.75× ROAS is learning-phase noise — watch it climb toward the 4.95× Mother's Day benchmark over the next 3–7 days.</p></div>
     <div class="ins win"><b>🌱 A warm account, relaunched</b><p>Spend fell to ₹1,073 in the last 30 days on a proven 4.52× base. Monsoon Mania restarts the engine at the ideal moment — no cold-start.</p></div>
     <div class="ins op"><b>📈 Fund the young</b><p>25–34 returns 8.06× on ₹4.2K while 35–44 (₹12.6K) drags at 3.18×. Shifting budget younger is the single clearest efficiency lever.</p></div>
