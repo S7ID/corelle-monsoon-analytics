@@ -57,6 +57,14 @@
   .kpi .d{font-size:11px;color:var(--muted);margin-top:3px}
   .kpi.hero{background:linear-gradient(135deg,var(--teal),#12b39f);color:#fff;border:none}
   .kpi.hero .k,.kpi.hero .d{color:rgba(255,255,255,.88)}
+  /* campaign split */
+  .cmp .cmp-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px;flex-wrap:wrap}
+  .cmp-date{font-size:11.5px;color:var(--muted);font-weight:600}
+  .cmp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px}
+  .cmp-grid .s .k{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .cmp-grid .s .v{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-top:3px}
+  .card.cmp.islive{border-color:color-mix(in srgb, var(--good) 45%, var(--line));box-shadow:0 0 0 1px color-mix(in srgb, var(--good) 20%, transparent), var(--shadow)}
+  .hi{color:var(--good)} .lo{color:var(--bad)} .mid{color:var(--amber)}
   /* bar rows */
   .rows{display:flex;flex-direction:column;gap:9px}
   .row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:11px;cursor:default;border-radius:8px;padding:2px 4px;margin:-2px -4px}
@@ -117,7 +125,42 @@
     <b>Scope:</b> Meta Ads performance (the live-connected source for Corelle India). Revenue is <b>Meta-attributed</b> (spend × Purchase ROAS). GA4 / Clarity / Shopify order analytics aren't yet connected for this store, so on-site behaviour &amp; blended revenue aren't included. Snapshot pulled <b>10 Jul 2026</b>.
   </div>
 
-  <h2>Headline · Last 90 Days</h2>
+  <h2>Campaign Split — Monsoon Mania vs Mother's Day</h2>
+  <div class="grid2">
+    <div class="card cmp islive">
+      <div class="cmp-h"><span class="pill live"><span class="dotpulse"></span>Monsoon Mania · LIVE</span><span class="cmp-date">from 10 Jul 2026 · Day 1</span></div>
+      <div class="cmp-grid">
+        <div class="s"><div class="k">Spend</div><div class="v">₹629</div></div>
+        <div class="s"><div class="k">Impressions</div><div class="v">2,852</div></div>
+        <div class="s"><div class="k">Clicks</div><div class="v">173</div></div>
+        <div class="s"><div class="k">CTR</div><div class="v mid">6.07%</div></div>
+        <div class="s"><div class="k">CPC</div><div class="v">₹3.64</div></div>
+        <div class="s"><div class="k">ROAS</div><div class="v lo">1.75×</div></div>
+      </div>
+      <p class="cap" style="margin:16px 0 0">Launched today on the repurposed shell (5 creatives, ₹3,500/day). Day-1 ROAS is the <b>learning phase</b> — it climbs as the pixel optimises. Target to beat: <b>4.95×</b>.</p>
+    </div>
+    <div class="card cmp">
+      <div class="cmp-h"><span class="pill">Mother's Day 2026 · benchmark</span><span class="cmp-date">8 May – 9 Jul 2026</span></div>
+      <div class="cmp-grid">
+        <div class="s"><div class="k">Spend</div><div class="v">₹40,643</div></div>
+        <div class="s"><div class="k">Impressions</div><div class="v">152,103</div></div>
+        <div class="s"><div class="k">Clicks</div><div class="v">12,872</div></div>
+        <div class="s"><div class="k">CTR</div><div class="v hi">8.46%</div></div>
+        <div class="s"><div class="k">CPC</div><div class="v">₹3.16</div></div>
+        <div class="s"><div class="k">ROAS</div><div class="v hi">4.95×</div></div>
+      </div>
+      <p class="cap" style="margin:16px 0 0">The proven seasonal run this campaign is cloned from — <b>4.95× ROAS at 8.46% CTR</b>, reach 58,389, frequency 2.60. The bar Monsoon Mania is chasing.</p>
+    </div>
+  </div>
+
+  <h2>Monsoon Mania — Day 1 Creative Leaderboard</h2>
+  <div class="card">
+    <h3>Morning Blue is out front</h3>
+    <p class="cap">Spend today (bar) · CTR (pill). The new Morning Blue pattern creative leads on both spend share and CTR (8.41%). Momos is still clearing ad review.</p>
+    <div class="rows" id="mmads"></div>
+  </div>
+
+  <h2>Account Headline · 90 Days <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">— all campaigns combined</span></h2>
   <div class="kpis">
     <div class="kpi hero"><div class="k">Purchase ROAS</div><div class="v">4.52×</div><div class="d">Meta-attributed return</div></div>
     <div class="kpi"><div class="k">Ad Spend</div><div class="v">₹1.04L</div><div class="d">₹1,03,977</div></div>
@@ -198,6 +241,7 @@
 
   <h2>What the Data Says</h2>
   <div class="insights">
+    <div class="ins win"><b>🚀 Monsoon Mania is live &amp; delivering</b><p>Day 1: ₹629 spent, 6.07% CTR, Morning Blue leading at 8.41%. The 1.75× ROAS is learning-phase noise — watch it climb toward the 4.95× Mother's Day benchmark over the next 3–7 days.</p></div>
     <div class="ins win"><b>🌱 A warm account, relaunched</b><p>Spend fell to ₹1,073 in the last 30 days on a proven 4.52× base. Monsoon Mania restarts the engine at the ideal moment — no cold-start.</p></div>
     <div class="ins op"><b>📈 Fund the young</b><p>25–34 returns 8.06× on ₹4.2K while 35–44 (₹12.6K) drags at 3.18×. Shifting budget younger is the single clearest efficiency lever.</p></div>
     <div class="ins"><b>🎯 Feed first</b><p>Feed = 74% of spend at 4.93× ROAS. Keep Stories/Reels for cheap reach &amp; CTR, but don't let them pull budget from Feed. Cut or fix FB Reels (1.57×).</p></div>
@@ -218,6 +262,7 @@ const INR = n => "₹" + Math.round(n).toLocaleString("en-IN");
 const INRk = n => n>=100000 ? "₹"+(n/100000).toFixed(2)+"L" : n>=1000 ? "₹"+(n/1000).toFixed(1)+"K" : "₹"+Math.round(n);
 const roasClass = r => r==null ? "rn" : r>=4.5 ? "rg" : r>=3 ? "ra" : "rb";
 const roasTxt = r => r==null ? "n/a" : r.toFixed(2)+"×";
+const ctrClass = c => c==null ? "rn" : c>=7 ? "rg" : c>=4 ? "ra" : "rb";
 
 // ---- data ----
 const AGE=[["18–24",733,10.77,4.26],["25–34",4195,8.06,5.11],["35–44",12642,3.18,5.71],["45–54",28507,4.35,6.94],["55–64",35913,4.42,8.28],["65+",21987,4.82,9.90]];
@@ -239,7 +284,9 @@ function hbars(id, rows, opt){
     const [lbl,val,roas,ctr] = r;
     const div = document.createElement("div"); div.className="row";
     const pct = Math.max(2,(val/max)*100);
-    const rp = opt.roas!==false ? `<span class="roas ${roasClass(roas)}">${roasTxt(roas)}</span>` : "";
+    let rp = "";
+    if(opt.pill==='ctr') rp = `<span class="roas ${ctrClass(ctr)}">${ctr==null?'in review':ctr.toFixed(2)+'%'}</span>`;
+    else if(opt.roas!==false) rp = `<span class="roas ${roasClass(roas)}">${roasTxt(roas)}</span>`;
     div.innerHTML = `<div class="lbl" title="${lbl}">${lbl}</div>
       <div class="track"><div class="fill" style="width:0;background:${color}"></div></div>
       <div class="rowend"><span class="amt">${INRk(val)}</span>${rp}</div>`;
@@ -312,6 +359,8 @@ hbars("placement", PLACEMENT, {color:"var(--teal)"});
 hbars("device", DEVICE, {color:"var(--teal)"});
 hbars("platform", PLATFORM, {color:"var(--teal)"});
 hbars("geo", GEO.map(g=>[g[0],g[1],undefined,null]), {roas:false, color:"var(--blue)"});
+const MMADS=[["Morning Blue",322,null,8.41],["Samosa",186,null,4.12],["Maggi",93,null,2.47],["Plates",27,null,2.91],["Momos",0,null,null]];
+hbars("mmads", MMADS, {roas:false, pill:'ctr', color:"var(--teal)"});
 
 // ---- theme toggle ----
 const root=document.documentElement;
