@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Corelle India — Performance Analytics</title>
+<style>
+  :root{
+    --bg:#f4f6f7; --panel:#ffffff; --ink:#12211f; --muted:#5b6b68; --line:#e2e8e6;
+    --teal:#1f7a6b; --teal-2:#2fa38f; --teal-soft:#e6f2ef; --blue:#2f6fb0; --amber:#d98a2b;
+    --red:#c0492f; --good:#1f9d6b; --shadow:0 1px 2px rgba(18,33,31,.05),0 8px 24px rgba(18,33,31,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0e1614; --panel:#152220; --ink:#eaf2f0; --muted:#9fb2ae; --line:#243733;
+      --teal:#3fb8a2; --teal-2:#2fa38f; --teal-soft:#16302b; --blue:#5c9bd6; --amber:#e2a251;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35); }
+  }
+  :root[data-theme="dark"]{ --bg:#0e1614; --panel:#152220; --ink:#eaf2f0; --muted:#9fb2ae; --line:#243733; --teal:#3fb8a2; --teal-soft:#16302b; --blue:#5c9bd6; }
+  :root[data-theme="light"]{ --bg:#f4f6f7; --panel:#ffffff; --ink:#12211f; --muted:#5b6b68; --line:#e2e8e6; --teal:#1f7a6b; --teal-soft:#e6f2ef; --blue:#2f6fb0; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 64px}
+  header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:6px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-2));
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:22px;letter-spacing:-1px}
+  h1{font-size:22px;margin:0;letter-spacing:-.3px}
+  .sub{color:var(--muted);font-size:13px;margin-top:2px}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--teal);
+    background:var(--teal-soft);padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+  .meta-note{color:var(--muted);font-size:12.5px;margin:14px 0 26px;padding:12px 14px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px}
+  .meta-note b{color:var(--ink)}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:34px 0 14px;font-weight:700}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  @media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow)}
+  .kpi .k{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.2px}
+  .kpi .v{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:5px}
+  .kpi .d{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .kpi.hero{background:linear-gradient(135deg,var(--teal),var(--teal-2));color:#fff;border:none}
+  .kpi.hero .k,.kpi.hero .d{color:rgba(255,255,255,.85)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 20px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 2px;font-size:15px}
+  .card .cap{color:var(--muted);font-size:12px;margin-bottom:16px}
+  .bar-row{display:grid;grid-template-columns:88px 1fr auto;align-items:center;gap:12px;margin:11px 0}
+  .bar-row .lbl{font-size:12.5px;color:var(--muted);font-weight:600}
+  .track{background:var(--teal-soft);border-radius:8px;height:26px;overflow:hidden;position:relative}
+  .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--teal),var(--teal-2));display:flex;align-items:center;
+    justify-content:flex-end;padding-right:8px;color:#fff;font-size:11px;font-weight:700;min-width:34px}
+  .fill.alt{background:linear-gradient(90deg,var(--blue),#5c9bd6)}
+  .fill.amber{background:linear-gradient(90deg,var(--amber),#e2a251)}
+  .val{font-size:12.5px;font-weight:700;text-align:right;min-width:52px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:right;padding:9px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+  td.name{font-weight:600;max-width:210px}
+  .tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;white-space:nowrap}
+  .t-live{background:var(--teal-soft);color:var(--teal)}
+  .t-pause{background:#f0ece2;color:#8a7a52}
+  .t-issue{background:#f7e2dc;color:var(--red)}
+  @media(prefers-color-scheme:dark){.t-pause{background:#2a2a1e;color:#c9b783}.t-issue{background:#3a231d;color:#e08b73}}
+  .roas{font-weight:800;color:var(--good)}
+  .insights{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:860px){.insights{grid-template-columns:1fr}}
+  .ins{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:10px;padding:13px 15px}
+  .ins b{font-size:13px}.ins p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+  .ins.op{border-left-color:var(--amber)} .ins.warn{border-left-color:var(--red)}
+  footer{margin-top:40px;color:var(--muted);font-size:11.5px;text-align:center;line-height:1.7}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div>
+        <h1>Corelle India — Performance Analytics</h1>
+        <div class="sub">Meta Ads account · Anvis Digital / Stone Sapphire India</div>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <span class="pill">● Snapshot: 11 Apr – 9 Jul 2026 (last 90 days)</span>
+      <div class="sub" style="margin-top:6px">Generated 10 Jul 2026 · Source: Meta Ads API</div>
+    </div>
+  </header>
+
+  <div class="meta-note">
+    <b>Scope:</b> This dashboard reflects <b>Meta Ads</b> performance only — the live data source currently connected for Corelle India.
+    GA4, Microsoft Clarity and Shopify order analytics are <b>not yet connected for this store</b> (the connected GA4/Clarity properties belong to a different brand),
+    so on-site behaviour and blended store revenue are not included here yet. Revenue figures below are <b>Meta-attributed</b> (spend × Purchase ROAS).
+  </div>
+
+  <h2>Headline · Last 90 Days</h2>
+  <div class="kpis">
+    <div class="kpi hero"><div class="k">Purchase ROAS</div><div class="v">4.52×</div><div class="d">Meta-attributed return</div></div>
+    <div class="kpi"><div class="k">Ad Spend</div><div class="v">₹1.04L</div><div class="d">₹1,03,977</div></div>
+    <div class="kpi"><div class="k">Attributed Revenue</div><div class="v">₹4.70L</div><div class="d">est. ₹4,69,976</div></div>
+    <div class="kpi"><div class="k">Impressions</div><div class="v">314K</div><div class="d">Reach 95,973</div></div>
+    <div class="kpi"><div class="k">Clicks</div><div class="v">23,987</div><div class="d">Freq 3.28</div></div>
+    <div class="kpi"><div class="k">CTR</div><div class="v">7.63%</div><div class="d">strong vs benchmark</div></div>
+    <div class="kpi"><div class="k">CPC</div><div class="v">₹4.33</div><div class="d">cost per click</div></div>
+    <div class="kpi"><div class="k">CPM</div><div class="v">₹330.79</div><div class="d">per 1,000 impr.</div></div>
+    <div class="kpi"><div class="k">Reach</div><div class="v">95,973</div><div class="d">Meta accounts</div></div>
+    <div class="kpi"><div class="k">Last 30 days</div><div class="v">₹1,073</div><div class="d">near-dark — relaunch due</div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3>Monthly trend</h3>
+      <div class="cap">Spend (bar) &amp; Purchase ROAS (label) — May carried the quarter</div>
+      <div class="bar-row"><span class="lbl">Apr (11–30)</span><div class="track"><div class="fill" style="width:8%">₹6.9K</div></div><span class="val">ROAS 3.52×</span></div>
+      <div class="bar-row"><span class="lbl">May</span><div class="track"><div class="fill" style="width:100%">₹92.7K</div></div><span class="val">ROAS 4.45×</span></div>
+      <div class="bar-row"><span class="lbl">Jun</span><div class="track"><div class="fill" style="width:5%">₹4.3K</div></div><span class="val roas">ROAS 7.71×</span></div>
+      <p class="cap" style="margin-top:14px;margin-bottom:0">June ran lean but efficient (7.71× ROAS). Spend has since paused — the account is primed for a fresh seasonal push.</p>
+    </div>
+    <div class="card">
+      <h3>Platform split</h3>
+      <div class="cap">Facebook vs Instagram — 90-day spend share &amp; efficiency</div>
+      <div class="bar-row"><span class="lbl">Facebook</span><div class="track"><div class="fill" style="width:100%">₹56.8K · 55%</div></div><span class="val roas">4.71×</span></div>
+      <div class="bar-row"><span class="lbl">Instagram</span><div class="track"><div class="fill alt" style="width:82%">₹46.6K · 45%</div></div><span class="val">4.35×</span></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--teal)"></i>FB: CTR 7.88% · CPC ₹3.65</span>
+        <span><i class="dot" style="background:var(--blue)"></i>IG: CTR 7.22% · CPC ₹5.72</span>
+      </div>
+      <p class="cap" style="margin-top:14px;margin-bottom:0">Facebook wins on both ROAS and CPC. Audience Network &amp; Threads are negligible (&lt;₹600 combined).</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Audience by age — ROAS vs spend allocation</h3>
+    <div class="cap">Bar = spend · label = Purchase ROAS. Budget skews old; younger cohorts convert far more efficiently.</div>
+    <div class="bar-row"><span class="lbl">18–24</span><div class="track"><div class="fill amber" style="width:2%"></div></div><span class="val roas">10.77×</span></div>
+    <div class="bar-row"><span class="lbl">25–34</span><div class="track"><div class="fill amber" style="width:12%">₹4.2K</div></div><span class="val roas">8.06×</span></div>
+    <div class="bar-row"><span class="lbl">35–44</span><div class="track"><div class="fill" style="width:35%">₹12.6K</div></div><span class="val">3.18×</span></div>
+    <div class="bar-row"><span class="lbl">45–54</span><div class="track"><div class="fill" style="width:79%">₹28.5K</div></div><span class="val">4.35×</span></div>
+    <div class="bar-row"><span class="lbl">55–64</span><div class="track"><div class="fill" style="width:100%">₹35.9K</div></div><span class="val">4.42×</span></div>
+    <div class="bar-row"><span class="lbl">65+</span><div class="track"><div class="fill" style="width:61%">₹22.0K</div></div><span class="val">4.82×</span></div>
+    <p class="cap" style="margin-top:14px;margin-bottom:0"><b>Opportunity:</b> 25–34 returns 8.06× on just ₹4.2K spend while 35–44 (₹12.6K) is the weakest at 3.18×. Rebalancing budget toward 25–34 is the clearest efficiency lever for Monsoon Mania.</p>
+  </div>
+
+  <h2>Campaigns · Last 90 Days</h2>
+  <div class="card" style="overflow-x:auto">
+    <table>
+      <thead><tr><th>Campaign</th><th>Status</th><th>Spend</th><th>Impr.</th><th>CTR</th><th>CPC</th><th>ROAS</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Slow Movers + Bestsellers</td><td><span class="tag t-issue">With issues</span></td><td>₹55,619</td><td>145,337</td><td>6.74%</td><td>₹5.68</td><td class="roas">4.36×</td></tr>
+        <tr><td class="name">Corelle India — Mother's Day 2026</td><td><span class="tag t-pause">Paused</span></td><td>₹40,643</td><td>152,103</td><td>8.46%</td><td>₹3.16</td><td class="roas">4.95×</td></tr>
+        <tr><td class="name">C12 · Value 5–20K · Catalogue</td><td><span class="tag t-pause">Paused</span></td><td>₹3,511</td><td>7,590</td><td>7.71%</td><td>₹6.00</td><td class="roas">4.87×</td></tr>
+        <tr><td class="name">C15 · Value 5–20K · Catalogue</td><td><span class="tag t-pause">Paused</span></td><td>₹3,427</td><td>7,641</td><td>8.28%</td><td>₹5.41</td><td>2.14×</td></tr>
+        <tr><td class="name">Sales-Catalog · Mother's Day</td><td><span class="tag t-pause">Paused</span></td><td>₹778</td><td>1,661</td><td>5.90%</td><td>₹7.94</td><td>2.93×</td></tr>
+      </tbody>
+    </table>
+    <p class="cap" style="margin-top:14px;margin-bottom:0">The <b>Mother's Day 2026</b> seasonal push (8.46% CTR, 4.95× ROAS at ₹40.6K) is the proven template for Monsoon Mania. "Slow Movers + Bestsellers" is flagged <b>With issues</b> and needs a fix before scaling.</p>
+  </div>
+
+  <h2>What the data says</h2>
+  <div class="insights">
+    <div class="ins"><b>🌱 Relaunch moment</b><p>Spend fell to ₹1,073 in the last 30 days. The account is warm (4.52× blended ROAS) but idle — ideal timing to relaunch with a seasonal hook.</p></div>
+    <div class="ins op"><b>📈 Younger = cheaper conversions</b><p>25–34 delivers 8.06× ROAS on minimal spend; 35–44 is over-funded and weakest. Shift budget younger.</p></div>
+    <div class="ins"><b>👍 Facebook leads</b><p>FB beats IG on ROAS (4.71× vs 4.35×) and CPC (₹3.65 vs ₹5.72). Weight placements accordingly, but keep IG Reels for reach.</p></div>
+    <div class="ins op"><b>🏆 Proven seasonal template</b><p>Mother's Day 2026 hit 4.95× ROAS at 8.46% CTR. Clone its OUTCOME_SALES structure for Monsoon Mania.</p></div>
+    <div class="ins warn"><b>🛠️ Fix "With issues"</b><p>The always-on "Slow Movers + Bestsellers" campaign is throttled by an issue — resolve before adding budget.</p></div>
+    <div class="ins warn"><b>🔌 Close the data gap</b><p>Connect Corelle's own GA4, Clarity &amp; Shopify to move from Meta-only to blended, true-ROAS reporting.</p></div>
+  </div>
+
+  <footer>
+    Corelle India performance snapshot · Data pulled live from Meta Ads API on 2026-07-10 · Window 11 Apr – 9 Jul 2026.<br/>
+    Prepared for the Monsoon Mania campaign relaunch · S7 HQ Marketing Analytics.
+  </footer>
+</div>
+<script>
+  // Respect an explicit theme toggle if the host stamps data-theme; otherwise follow prefers-color-scheme.
+  (function(){ try{ var t=document.documentElement.getAttribute('data-theme'); }catch(e){} })();
+</script>
+</body>
+</html>
