@@ -2,7 +2,7 @@
 
 Live, interactive analytics for the **Corelle India** Meta Ads account, built for the **Monsoon Mania** relaunch.
 
-**🔴 Live dashboard → https://s7id.github.io/corelle-monsoon-analytics/**
+**🔴 Live dashboard → https://s7id.github.io/corelle-s7-ad-analytics/**
 
 - Single self-contained `index.html` — no build step, no dependencies, theme-aware (light/dark), interactive hover tooltips.
 - **Data source:** Meta Ads API (live pull), window **11 Apr – 9 Jul 2026** (last 90 days). Generated **2026-07-10**.
