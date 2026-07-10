@@ -4,99 +4,117 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Corelle India — Performance Analytics</title>
+<meta name="description" content="Meta Ads performance dashboard for Corelle India — Monsoon Mania relaunch." />
 <style>
   :root{
-    --bg:#f4f6f7; --panel:#ffffff; --ink:#12211f; --muted:#5b6b68; --line:#e2e8e6;
-    --teal:#1f7a6b; --teal-2:#2fa38f; --teal-soft:#e6f2ef; --blue:#2f6fb0; --amber:#d98a2b;
-    --red:#c0492f; --good:#1f9d6b; --shadow:0 1px 2px rgba(18,33,31,.05),0 8px 24px rgba(18,33,31,.06);
+    --bg:#fcfcfb; --panel:#ffffff; --panel-2:#f6f8f7; --ink:#13211f; --ink-2:#3f524e; --muted:#6b7d78; --line:#e6ece9;
+    --teal:#0a9384; --amber:#c77d18; --blue:#2f6fb0; --rose:#b5495b;
+    --good:#1a8f5a; --warn:#c77d18; --bad:#c0492f;
+    --teal-soft:#e5f3f0; --shadow:0 1px 2px rgba(19,33,31,.04),0 10px 30px rgba(19,33,31,.06);
+    --grid:#eef2f0;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#0e1614; --panel:#152220; --ink:#eaf2f0; --muted:#9fb2ae; --line:#243733;
-      --teal:#3fb8a2; --teal-2:#2fa38f; --teal-soft:#16302b; --blue:#5c9bd6; --amber:#e2a251;
-      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35); }
+    :root{ --bg:#0e1614; --panel:#182622; --panel-2:#1b2926; --ink:#eaf2f0; --ink-2:#b6c6c1; --muted:#8ba09a; --line:#243733;
+      --teal:#1b9d8d; --amber:#c98a1f; --blue:#4a86c6; --rose:#cc6b7e;
+      --good:#37b87d; --warn:#e0a03c; --bad:#e07a63;
+      --teal-soft:#14312c; --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px rgba(0,0,0,.4); --grid:#2c413b; }
   }
-  :root[data-theme="dark"]{ --bg:#0e1614; --panel:#152220; --ink:#eaf2f0; --muted:#9fb2ae; --line:#243733; --teal:#3fb8a2; --teal-soft:#16302b; --blue:#5c9bd6; }
-  :root[data-theme="light"]{ --bg:#f4f6f7; --panel:#ffffff; --ink:#12211f; --muted:#5b6b68; --line:#e2e8e6; --teal:#1f7a6b; --teal-soft:#e6f2ef; --blue:#2f6fb0; }
+  :root[data-theme="dark"]{ --bg:#0e1614; --panel:#182622; --panel-2:#1b2926; --ink:#eaf2f0; --ink-2:#b6c6c1; --muted:#8ba09a; --line:#243733; --teal:#1b9d8d; --amber:#c98a1f; --blue:#4a86c6; --rose:#cc6b7e; --good:#37b87d; --warn:#e0a03c; --bad:#e07a63; --teal-soft:#14312c; --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px rgba(0,0,0,.4); --grid:#2c413b; }
+  :root[data-theme="light"]{ --bg:#fcfcfb; --panel:#ffffff; --panel-2:#f6f8f7; --ink:#13211f; --ink-2:#3f524e; --muted:#6b7d78; --line:#e6ece9; --teal:#0a9384; --amber:#c77d18; --blue:#2f6fb0; --rose:#b5495b; --good:#1a8f5a; --warn:#c77d18; --bad:#c0492f; --teal-soft:#e5f3f0; --shadow:0 1px 2px rgba(19,33,31,.04),0 10px 30px rgba(19,33,31,.06); --grid:#eef2f0; }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.5;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 64px}
-  header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:6px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-2));
-    display:grid;place-items:center;color:#fff;font-weight:800;font-size:22px;letter-spacing:-1px}
-  h1{font-size:22px;margin:0;letter-spacing:-.3px}
-  .sub{color:var(--muted);font-size:13px;margin-top:2px}
-  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--teal);
-    background:var(--teal-soft);padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
-  .meta-note{color:var(--muted);font-size:12.5px;margin:14px 0 26px;padding:12px 14px;background:var(--panel);
-    border:1px solid var(--line);border-radius:12px}
-  .meta-note b{color:var(--ink)}
-  h2{font-size:13px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:34px 0 14px;font-weight:700}
-  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-  @media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}}
-  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow)}
-  .kpi .k{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.2px}
-  .kpi .v{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:5px}
-  .kpi .d{font-size:11.5px;color:var(--muted);margin-top:3px}
-  .kpi.hero{background:linear-gradient(135deg,var(--teal),var(--teal-2));color:#fff;border:none}
-  .kpi.hero .k,.kpi.hero .d{color:rgba(255,255,255,.85)}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 72px}
+  a{color:var(--teal)}
+  /* header */
+  header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:13px}
+  .logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--teal),#12b39f);display:grid;place-items:center;color:#fff;font-weight:800;font-size:23px;letter-spacing:-1px;flex:none}
+  h1{font-size:23px;margin:0;letter-spacing:-.4px;text-wrap:balance}
+  .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .badges{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+  .pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink-2)}
+  .pill.live{color:#fff;background:linear-gradient(135deg,var(--good),#22a869);border:none}
+  .dotpulse{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.7);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 7px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+  @media (prefers-reduced-motion: reduce){.dotpulse{animation:none}}
+  .scope{margin:18px 0 6px;padding:12px 15px;background:var(--panel);border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--muted)}
+  .scope b{color:var(--ink)}
+  /* section */
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin:38px 0 15px;font-weight:700}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px 20px 21px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 3px;font-size:15px;letter-spacing:-.2px}
+  .card .cap{color:var(--muted);font-size:12px;margin:0 0 16px;text-wrap:pretty}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 20px;box-shadow:var(--shadow)}
-  .card h3{margin:0 0 2px;font-size:15px}
-  .card .cap{color:var(--muted);font-size:12px;margin-bottom:16px}
-  .bar-row{display:grid;grid-template-columns:88px 1fr auto;align-items:center;gap:12px;margin:11px 0}
-  .bar-row .lbl{font-size:12.5px;color:var(--muted);font-weight:600}
-  .track{background:var(--teal-soft);border-radius:8px;height:26px;overflow:hidden;position:relative}
-  .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--teal),var(--teal-2));display:flex;align-items:center;
-    justify-content:flex-end;padding-right:8px;color:#fff;font-size:11px;font-weight:700;min-width:34px}
-  .fill.alt{background:linear-gradient(90deg,var(--blue),#5c9bd6)}
-  .fill.amber{background:linear-gradient(90deg,var(--amber),#e2a251)}
-  .val{font-size:12.5px;font-weight:700;text-align:right;min-width:52px}
-  table{width:100%;border-collapse:collapse;font-size:12.5px}
-  th,td{text-align:right;padding:9px 8px;border-bottom:1px solid var(--line)}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  /* kpi */
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 15px;box-shadow:var(--shadow)}
+  .kpi .k{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.2px;display:flex;align-items:center;gap:5px}
+  .kpi .v{font-size:23px;font-weight:800;letter-spacing:-.6px;margin-top:6px}
+  .kpi .d{font-size:11px;color:var(--muted);margin-top:3px}
+  .kpi.hero{background:linear-gradient(135deg,var(--teal),#12b39f);color:#fff;border:none}
+  .kpi.hero .k,.kpi.hero .d{color:rgba(255,255,255,.88)}
+  /* bar rows */
+  .rows{display:flex;flex-direction:column;gap:9px}
+  .row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:11px;cursor:default;border-radius:8px;padding:2px 4px;margin:-2px -4px}
+  .row:hover{background:var(--panel-2)}
+  .row .lbl{font-size:12px;color:var(--ink-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .track{background:var(--teal-soft);border-radius:7px;height:22px;overflow:hidden;position:relative}
+  .fill{height:100%;border-radius:7px;min-width:3px;transition:width .6s cubic-bezier(.22,1,.36,1)}
+  .rowend{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+  .amt{font-size:12px;font-weight:700;min-width:52px;text-align:right;color:var(--ink)}
+  .roas{font-size:11px;font-weight:800;padding:2px 7px;border-radius:6px;white-space:nowrap}
+  .rg{background:rgba(26,143,90,.14);color:var(--good)} .ra{background:rgba(199,125,24,.16);color:var(--amber)} .rb{background:rgba(192,73,47,.14);color:var(--bad)} .rn{background:var(--panel-2);color:var(--muted)}
+  /* table */
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:520px}
+  th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--line)}
   th:first-child,td:first-child{text-align:left}
-  th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
-  td.name{font-weight:600;max-width:210px}
-  .tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;white-space:nowrap}
-  .t-live{background:var(--teal-soft);color:var(--teal)}
-  .t-pause{background:#f0ece2;color:#8a7a52}
-  .t-issue{background:#f7e2dc;color:var(--red)}
-  @media(prefers-color-scheme:dark){.t-pause{background:#2a2a1e;color:#c9b783}.t-issue{background:#3a231d;color:#e08b73}}
-  .roas{font-weight:800;color:var(--good)}
+  th{color:var(--muted);font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px}
+  td.name{font-weight:600;max-width:230px}
+  .tag{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .t-live{background:rgba(26,143,90,.15);color:var(--good)} .t-pause{background:var(--panel-2);color:var(--muted)} .t-issue{background:rgba(192,73,47,.14);color:var(--bad)}
+  /* insights */
   .insights{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(max-width:860px){.insights{grid-template-columns:1fr}}
-  .ins{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:10px;padding:13px 15px}
-  .ins b{font-size:13px}.ins p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
-  .ins.op{border-left-color:var(--amber)} .ins.warn{border-left-color:var(--red)}
-  footer{margin-top:40px;color:var(--muted);font-size:11.5px;text-align:center;line-height:1.7}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px}
+  @media(max-width:820px){.insights{grid-template-columns:1fr}}
+  .ins{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:11px;padding:14px 16px}
+  .ins.op{border-left-color:var(--amber)} .ins.warn{border-left-color:var(--bad)} .ins.win{border-left-color:var(--good)}
+  .ins b{font-size:13px;display:block;margin-bottom:4px} .ins p{margin:0;font-size:12.5px;color:var(--muted);text-wrap:pretty}
+  /* chart */
+  .chartbox{position:relative}
+  svg{display:block;width:100%;overflow:visible}
+  .legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:10px}
   .legend span{display:inline-flex;align-items:center;gap:6px}
-  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .swatch{width:11px;height:11px;border-radius:3px;flex:none}
+  .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:11.5px;line-height:1.45;padding:7px 10px;border-radius:8px;opacity:0;transition:opacity .1s;white-space:nowrap;z-index:5;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .tip b{color:var(--bg)}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px;line-height:1.7;text-align:center}
+  .toggle{cursor:pointer;font-size:11.5px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:600}
+  .toggle:hover{color:var(--ink)}
 </style>
 </head>
-<body>
+<body data-palette="#0a9384,#c77d18,#2f6fb0,#b5495b">
 <div class="wrap">
   <header class="top">
     <div class="brand">
       <div class="logo">C</div>
       <div>
         <h1>Corelle India — Performance Analytics</h1>
-        <div class="sub">Meta Ads account · Anvis Digital / Stone Sapphire India</div>
+        <div class="sub">Meta Ads · Anvis Digital / Stone Sapphire India · store <a href="https://corelle.co.in">corelle.co.in</a></div>
       </div>
     </div>
-    <div style="text-align:right">
-      <span class="pill">● Snapshot: 11 Apr – 9 Jul 2026 (last 90 days)</span>
-      <div class="sub" style="margin-top:6px">Generated 10 Jul 2026 · Source: Meta Ads API</div>
+    <div class="badges">
+      <span class="pill live"><span class="dotpulse"></span>Monsoon Mania — LIVE</span>
+      <span class="pill">90-day window · 11 Apr – 9 Jul 2026</span>
+      <button class="toggle" id="themeToggle" aria-label="Toggle theme">◐ Theme</button>
     </div>
   </header>
 
-  <div class="meta-note">
-    <b>Scope:</b> This dashboard reflects <b>Meta Ads</b> performance only — the live data source currently connected for Corelle India.
-    GA4, Microsoft Clarity and Shopify order analytics are <b>not yet connected for this store</b> (the connected GA4/Clarity properties belong to a different brand),
-    so on-site behaviour and blended store revenue are not included here yet. Revenue figures below are <b>Meta-attributed</b> (spend × Purchase ROAS).
+  <div class="scope">
+    <b>Scope:</b> Meta Ads performance (the live-connected source for Corelle India). Revenue is <b>Meta-attributed</b> (spend × Purchase ROAS). GA4 / Clarity / Shopify order analytics aren't yet connected for this store, so on-site behaviour &amp; blended revenue aren't included. Snapshot pulled <b>10 Jul 2026</b>.
   </div>
 
   <h2>Headline · Last 90 Days</h2>
@@ -105,81 +123,202 @@
     <div class="kpi"><div class="k">Ad Spend</div><div class="v">₹1.04L</div><div class="d">₹1,03,977</div></div>
     <div class="kpi"><div class="k">Attributed Revenue</div><div class="v">₹4.70L</div><div class="d">est. ₹4,69,976</div></div>
     <div class="kpi"><div class="k">Impressions</div><div class="v">314K</div><div class="d">Reach 95,973</div></div>
-    <div class="kpi"><div class="k">Clicks</div><div class="v">23,987</div><div class="d">Freq 3.28</div></div>
-    <div class="kpi"><div class="k">CTR</div><div class="v">7.63%</div><div class="d">strong vs benchmark</div></div>
+    <div class="kpi"><div class="k">Clicks</div><div class="v">23,987</div><div class="d">Frequency 3.28</div></div>
+    <div class="kpi"><div class="k">CTR</div><div class="v">7.63%</div><div class="d">2–3× typical retail</div></div>
     <div class="kpi"><div class="k">CPC</div><div class="v">₹4.33</div><div class="d">cost per click</div></div>
-    <div class="kpi"><div class="k">CPM</div><div class="v">₹330.79</div><div class="d">per 1,000 impr.</div></div>
+    <div class="kpi"><div class="k">CPM</div><div class="v">₹331</div><div class="d">per 1,000 impressions</div></div>
     <div class="kpi"><div class="k">Reach</div><div class="v">95,973</div><div class="d">Meta accounts</div></div>
-    <div class="kpi"><div class="k">Last 30 days</div><div class="v">₹1,073</div><div class="d">near-dark — relaunch due</div></div>
+    <div class="kpi"><div class="k">Last 30 days</div><div class="v">₹1,073</div><div class="d">near-dark → relaunch</div></div>
   </div>
 
-  <div class="grid2" style="margin-top:16px">
+  <h2>Daily Spend &amp; Return</h2>
+  <div class="card">
+    <h3>The May push, then a maintenance holding pattern</h3>
+    <p class="cap">Daily spend (area). Hover any day for spend · CTR · ROAS. A heavy 11-day May burst (₹6–11K/day) was throttled to a lean retargeting drip — where CTR actually climbed to 10–12%.</p>
+    <div class="chartbox" id="trend"></div>
+  </div>
+
+  <h2>Who Converts — Age &amp; Gender</h2>
+  <div class="grid2">
     <div class="card">
-      <h3>Monthly trend</h3>
-      <div class="cap">Spend (bar) &amp; Purchase ROAS (label) — May carried the quarter</div>
-      <div class="bar-row"><span class="lbl">Apr (11–30)</span><div class="track"><div class="fill" style="width:8%">₹6.9K</div></div><span class="val">ROAS 3.52×</span></div>
-      <div class="bar-row"><span class="lbl">May</span><div class="track"><div class="fill" style="width:100%">₹92.7K</div></div><span class="val">ROAS 4.45×</span></div>
-      <div class="bar-row"><span class="lbl">Jun</span><div class="track"><div class="fill" style="width:5%">₹4.3K</div></div><span class="val roas">ROAS 7.71×</span></div>
-      <p class="cap" style="margin-top:14px;margin-bottom:0">June ran lean but efficient (7.71× ROAS). Spend has since paused — the account is primed for a fresh seasonal push.</p>
+      <h3>Age: budget skews old, efficiency skews young</h3>
+      <p class="cap">Bar = spend · pill = ROAS. 25–34 returns 8.06× on a sliver of budget; 35–44 is the most-funded weak spot (3.18×).</p>
+      <div class="rows" id="age"></div>
     </div>
     <div class="card">
-      <h3>Platform split</h3>
-      <div class="cap">Facebook vs Instagram — 90-day spend share &amp; efficiency</div>
-      <div class="bar-row"><span class="lbl">Facebook</span><div class="track"><div class="fill" style="width:100%">₹56.8K · 55%</div></div><span class="val roas">4.71×</span></div>
-      <div class="bar-row"><span class="lbl">Instagram</span><div class="track"><div class="fill alt" style="width:82%">₹46.6K · 45%</div></div><span class="val">4.35×</span></div>
-      <div class="legend">
-        <span><i class="dot" style="background:var(--teal)"></i>FB: CTR 7.88% · CPC ₹3.65</span>
-        <span><i class="dot" style="background:var(--blue)"></i>IG: CTR 7.22% · CPC ₹5.72</span>
-      </div>
-      <p class="cap" style="margin-top:14px;margin-bottom:0">Facebook wins on both ROAS and CPC. Audience Network &amp; Threads are negligible (&lt;₹600 combined).</p>
+      <h3>Gender: women are the core</h3>
+      <p class="cap">Bar = spend · pill = ROAS. Women take 80% of spend at a higher CTR (8.4% vs 5.4%) and higher ROAS.</p>
+      <div class="rows" id="gender"></div>
+      <div class="legend"><span>Women 8.4% CTR</span><span>Men 5.4% CTR</span></div>
     </div>
   </div>
 
-  <div class="card" style="margin-top:16px">
-    <h3>Audience by age — ROAS vs spend allocation</h3>
-    <div class="cap">Bar = spend · label = Purchase ROAS. Budget skews old; younger cohorts convert far more efficiently.</div>
-    <div class="bar-row"><span class="lbl">18–24</span><div class="track"><div class="fill amber" style="width:2%"></div></div><span class="val roas">10.77×</span></div>
-    <div class="bar-row"><span class="lbl">25–34</span><div class="track"><div class="fill amber" style="width:12%">₹4.2K</div></div><span class="val roas">8.06×</span></div>
-    <div class="bar-row"><span class="lbl">35–44</span><div class="track"><div class="fill" style="width:35%">₹12.6K</div></div><span class="val">3.18×</span></div>
-    <div class="bar-row"><span class="lbl">45–54</span><div class="track"><div class="fill" style="width:79%">₹28.5K</div></div><span class="val">4.35×</span></div>
-    <div class="bar-row"><span class="lbl">55–64</span><div class="track"><div class="fill" style="width:100%">₹35.9K</div></div><span class="val">4.42×</span></div>
-    <div class="bar-row"><span class="lbl">65+</span><div class="track"><div class="fill" style="width:61%">₹22.0K</div></div><span class="val">4.82×</span></div>
-    <p class="cap" style="margin-top:14px;margin-bottom:0"><b>Opportunity:</b> 25–34 returns 8.06× on just ₹4.2K spend while 35–44 (₹12.6K) is the weakest at 3.18×. Rebalancing budget toward 25–34 is the clearest efficiency lever for Monsoon Mania.</p>
+  <h2>Where It Runs — Placements &amp; Devices</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Placement: Feed is the money</h3>
+      <p class="cap">Bar = spend · pill = ROAS. Feed carries 74% of spend at the best ROAS (4.93×). Stories &amp; Reels win attention (CTR) but convert worse; FB Reels is the weakest (1.57×).</p>
+      <div class="rows" id="placement"></div>
+    </div>
+    <div class="card">
+      <h3>Device: iPhone out-earns Android</h3>
+      <p class="cap">Bar = spend · pill = ROAS. Android drives more clicks (8.3% CTR) but iPhone converts far better (4.86× vs 3.74×). ~99% mobile.</p>
+      <div class="rows" id="device"></div>
+    </div>
+  </div>
+
+  <h2>Platform &amp; Geography</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Facebook vs Instagram</h3>
+      <p class="cap">Bar = spend · pill = ROAS. Facebook leads on both ROAS and CPC (₹3.65 vs ₹5.72).</p>
+      <div class="rows" id="platform"></div>
+    </div>
+    <div class="card">
+      <h3>Top states by spend</h3>
+      <p class="cap">Bar = spend. Maharashtra &amp; Delhi lead; the South (Karnataka, Telangana, Tamil Nadu, Kerala) is a deep, consistent pocket.</p>
+      <div class="rows" id="geo"></div>
+    </div>
   </div>
 
   <h2>Campaigns · Last 90 Days</h2>
-  <div class="card" style="overflow-x:auto">
+  <div class="card tbl-wrap">
     <table>
       <thead><tr><th>Campaign</th><th>Status</th><th>Spend</th><th>Impr.</th><th>CTR</th><th>CPC</th><th>ROAS</th></tr></thead>
       <tbody>
-        <tr><td class="name">Slow Movers + Bestsellers</td><td><span class="tag t-issue">With issues</span></td><td>₹55,619</td><td>145,337</td><td>6.74%</td><td>₹5.68</td><td class="roas">4.36×</td></tr>
-        <tr><td class="name">Corelle India — Mother's Day 2026</td><td><span class="tag t-pause">Paused</span></td><td>₹40,643</td><td>152,103</td><td>8.46%</td><td>₹3.16</td><td class="roas">4.95×</td></tr>
-        <tr><td class="name">C12 · Value 5–20K · Catalogue</td><td><span class="tag t-pause">Paused</span></td><td>₹3,511</td><td>7,590</td><td>7.71%</td><td>₹6.00</td><td class="roas">4.87×</td></tr>
+        <tr><td class="name">Monsoon Mania (ex-Mother's Day shell)</td><td><span class="tag t-live">Live now</span></td><td>₹40,643</td><td>152,103</td><td>8.46%</td><td>₹3.16</td><td>4.95×</td></tr>
+        <tr><td class="name">Slow Movers + Bestsellers</td><td><span class="tag t-issue">With issues</span></td><td>₹55,619</td><td>145,337</td><td>6.74%</td><td>₹5.68</td><td>4.36×</td></tr>
+        <tr><td class="name">C12 · Value 5–20K · Catalogue</td><td><span class="tag t-pause">Paused</span></td><td>₹3,511</td><td>7,590</td><td>7.71%</td><td>₹6.00</td><td>4.87×</td></tr>
         <tr><td class="name">C15 · Value 5–20K · Catalogue</td><td><span class="tag t-pause">Paused</span></td><td>₹3,427</td><td>7,641</td><td>8.28%</td><td>₹5.41</td><td>2.14×</td></tr>
         <tr><td class="name">Sales-Catalog · Mother's Day</td><td><span class="tag t-pause">Paused</span></td><td>₹778</td><td>1,661</td><td>5.90%</td><td>₹7.94</td><td>2.93×</td></tr>
       </tbody>
     </table>
-    <p class="cap" style="margin-top:14px;margin-bottom:0">The <b>Mother's Day 2026</b> seasonal push (8.46% CTR, 4.95× ROAS at ₹40.6K) is the proven template for Monsoon Mania. "Slow Movers + Bestsellers" is flagged <b>With issues</b> and needs a fix before scaling.</p>
+    <p class="cap" style="margin:14px 0 0">The Mother's Day seasonal push (8.46% CTR, 4.95× ROAS) is now repurposed as the live <b>Monsoon Mania</b> campaign (5 creatives, ₹3,500/day). "Slow Movers" needs its delivery issue resolved before scaling.</p>
   </div>
 
-  <h2>What the data says</h2>
+  <h2>What the Data Says</h2>
   <div class="insights">
-    <div class="ins"><b>🌱 Relaunch moment</b><p>Spend fell to ₹1,073 in the last 30 days. The account is warm (4.52× blended ROAS) but idle — ideal timing to relaunch with a seasonal hook.</p></div>
-    <div class="ins op"><b>📈 Younger = cheaper conversions</b><p>25–34 delivers 8.06× ROAS on minimal spend; 35–44 is over-funded and weakest. Shift budget younger.</p></div>
-    <div class="ins"><b>👍 Facebook leads</b><p>FB beats IG on ROAS (4.71× vs 4.35×) and CPC (₹3.65 vs ₹5.72). Weight placements accordingly, but keep IG Reels for reach.</p></div>
-    <div class="ins op"><b>🏆 Proven seasonal template</b><p>Mother's Day 2026 hit 4.95× ROAS at 8.46% CTR. Clone its OUTCOME_SALES structure for Monsoon Mania.</p></div>
-    <div class="ins warn"><b>🛠️ Fix "With issues"</b><p>The always-on "Slow Movers + Bestsellers" campaign is throttled by an issue — resolve before adding budget.</p></div>
-    <div class="ins warn"><b>🔌 Close the data gap</b><p>Connect Corelle's own GA4, Clarity &amp; Shopify to move from Meta-only to blended, true-ROAS reporting.</p></div>
+    <div class="ins win"><b>🌱 A warm account, relaunched</b><p>Spend fell to ₹1,073 in the last 30 days on a proven 4.52× base. Monsoon Mania restarts the engine at the ideal moment — no cold-start.</p></div>
+    <div class="ins op"><b>📈 Fund the young</b><p>25–34 returns 8.06× on ₹4.2K while 35–44 (₹12.6K) drags at 3.18×. Shifting budget younger is the single clearest efficiency lever.</p></div>
+    <div class="ins"><b>🎯 Feed first</b><p>Feed = 74% of spend at 4.93× ROAS. Keep Stories/Reels for cheap reach &amp; CTR, but don't let them pull budget from Feed. Cut or fix FB Reels (1.57×).</p></div>
+    <div class="ins"><b>📱 Weight iPhone</b><p>iPhone converts at 4.86× vs Android's 3.74×, even though Android clicks more. Value-based bidding will naturally lean iOS.</p></div>
+    <div class="ins win"><b>👩 Women-led</b><p>Women are 80% of spend, 8.4% CTR, 4.60× ROAS. The creative and offer are landing with the core buyer — lean in.</p></div>
+    <div class="ins warn"><b>🔌 Close the data gap</b><p>Only Meta is wired up. Connecting Corelle's own GA4, Clarity &amp; Shopify moves this from Meta-attributed to true blended ROAS.</p></div>
   </div>
 
   <footer>
-    Corelle India performance snapshot · Data pulled live from Meta Ads API on 2026-07-10 · Window 11 Apr – 9 Jul 2026.<br/>
-    Prepared for the Monsoon Mania campaign relaunch · S7 HQ Marketing Analytics.
+    Data pulled live from the Meta Ads API on 2026-07-10 · window 11 Apr – 9 Jul 2026 · Corelle India ad account.<br/>
+    Built for the Monsoon Mania relaunch · S7 HQ Marketing Analytics · <a href="https://github.com/S7ID/corelle-monsoon-analytics">source</a>.
   </footer>
 </div>
+
 <script>
-  // Respect an explicit theme toggle if the host stamps data-theme; otherwise follow prefers-color-scheme.
-  (function(){ try{ var t=document.documentElement.getAttribute('data-theme'); }catch(e){} })();
+"use strict";
+const INR = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const INRk = n => n>=100000 ? "₹"+(n/100000).toFixed(2)+"L" : n>=1000 ? "₹"+(n/1000).toFixed(1)+"K" : "₹"+Math.round(n);
+const roasClass = r => r==null ? "rn" : r>=4.5 ? "rg" : r>=3 ? "ra" : "rb";
+const roasTxt = r => r==null ? "n/a" : r.toFixed(2)+"×";
+
+// ---- data ----
+const AGE=[["18–24",733,10.77,4.26],["25–34",4195,8.06,5.11],["35–44",12642,3.18,5.71],["45–54",28507,4.35,6.94],["55–64",35913,4.42,8.28],["65+",21987,4.82,9.90]];
+const GENDER=[["Women",83672,4.60,8.40],["Men",19729,4.35,5.43]];
+const PLACEMENT=[["Feed",84522,4.93,7.90],["IG Stories",8200,2.75,12.00],["IG Reels",5274,4.03,5.46],["FB Reels",4053,1.57,5.63],["FB Stories",827,null,9.16],["Other",900,null,null]];
+const DEVICE=[["iPhone",61324,4.86,7.17],["Android phone",40370,3.74,8.27],["iPad",1231,15.99,6.64],["Desktop",887,null,2.51]];
+const PLATFORM=[["Facebook",56807,4.71,7.88],["Instagram",46592,4.35,7.22]];
+const GEO=[["Maharashtra",19343],["Delhi",12074],["Karnataka",9795],["West Bengal",8530],["Telangana",8502],["Uttar Pradesh",6104],["Tamil Nadu",5658],["Haryana",5635],["Kerala",5593],["Gujarat",5528],["Punjab",4052],["Andhra Pradesh",3373]];
+const TREND=[["13 Apr",6938,8.00,2.66],["8 May",6574,11.69,3.64],["9 May",9217,9.05,4.33],["10 May",6817,7.88,6.56],["11 May",9521,7.04,4.27],["12 May",6793,7.29,4.30],["13 May",2682,7.09,3.33],["14 May",5438,6.19,2.02],["15 May",11249,6.06,3.29],["16 May",10962,6.20,6.39],["17 May",10651,5.79,1.44],["18 May",7459,6.73,4.84],["19 May",518,10.45,9.70],["20 May",523,10.32,7.06],["21 May",519,11.06,12.41],["22 May",396,10.86,10.22],["23 May",449,11.45,14.15],["24 May",631,10.24,null],["25 May",569,11.47,3.16],["26 May",617,12.05,19.75],["27 May",493,11.04,10.67],["28 May",407,10.68,2.21],["29 May",215,9.60,null],["4 Jun",650,4.68,9.55],["5 Jun",687,7.58,null],["6 Jun",680,5.22,2.53],["7 Jun",484,8.25,18.18],["8 Jun",411,8.07,null],["9 Jun",356,6.95,17.19],["10 Jun",520,5.56,13.81],["11 Jun",529,10.58,null],["12 Jun",24,6.02,null]];
+
+// ---- horizontal bars ----
+function hbars(id, rows, opt){
+  opt = opt||{};
+  const el = document.getElementById(id);
+  const max = Math.max(...rows.map(r=>r[1]));
+  const color = opt.color || "var(--teal)";
+  const tip = mkTip(el);
+  rows.forEach(r=>{
+    const [lbl,val,roas,ctr] = r;
+    const div = document.createElement("div"); div.className="row";
+    const pct = Math.max(2,(val/max)*100);
+    const rp = opt.roas!==false ? `<span class="roas ${roasClass(roas)}">${roasTxt(roas)}</span>` : "";
+    div.innerHTML = `<div class="lbl" title="${lbl}">${lbl}</div>
+      <div class="track"><div class="fill" style="width:0;background:${color}"></div></div>
+      <div class="rowend"><span class="amt">${INRk(val)}</span>${rp}</div>`;
+    el.appendChild(div);
+    const fill = div.querySelector(".fill");
+    requestAnimationFrame(()=>{ fill.style.width = pct+"%"; });
+    div.addEventListener("mousemove", e=>{
+      const parts = [`<b>${lbl}</b>`, `Spend ${INR(val)}`];
+      if(ctr!=null) parts.push(`CTR ${ctr.toFixed(2)}%`);
+      if(opt.roas!==false) parts.push(`ROAS ${roasTxt(roas)}`);
+      showTip(tip, el, e, parts.join("<br>"));
+    });
+    div.addEventListener("mouseleave", ()=>hideTip(tip));
+  });
+}
+
+function mkTip(el){ const t=document.createElement("div"); t.className="tip"; el.style.position="relative"; el.appendChild(t); return t; }
+function showTip(t,el,e,html){ t.innerHTML=html; const r=el.getBoundingClientRect(); let x=e.clientX-r.left+12, y=e.clientY-r.top-10; t.style.opacity=1; const tw=t.offsetWidth; if(x+tw>r.width) x=e.clientX-r.left-tw-12; t.style.left=x+"px"; t.style.top=y+"px"; }
+function hideTip(t){ t.style.opacity=0; }
+
+// ---- trend area chart ----
+function trend(id, data){
+  const el = document.getElementById(id);
+  const W=1000, H=260, pad={l:44,r:14,t:14,b:34};
+  const iw=W-pad.l-pad.r, ih=H-pad.t-pad.b;
+  const max = Math.max(...data.map(d=>d[1]));
+  const yMax = Math.ceil(max/2000)*2000;
+  const x = i => pad.l + (i/(data.length-1))*iw;
+  const y = v => pad.t + ih - (v/yMax)*ih;
+  const svgns="http://www.w3.org/2000/svg";
+  const svg=document.createElementNS(svgns,"svg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.setAttribute("role","img"); svg.setAttribute("aria-label","Daily ad spend, 11 Apr to 9 Jul 2026");
+  // gridlines + y labels
+  for(let g=0; g<=yMax; g+=yMax/4){
+    const yy=y(g);
+    svg.insertAdjacentHTML("beforeend",`<line x1="${pad.l}" y1="${yy}" x2="${W-pad.r}" y2="${yy}" stroke="var(--grid)" stroke-width="1"/>`);
+    svg.insertAdjacentHTML("beforeend",`<text x="${pad.l-8}" y="${yy+4}" text-anchor="end" font-size="10.5" fill="var(--muted)">${g===0?'0':'₹'+(g/1000)+'K'}</text>`);
+  }
+  // area + line
+  let area=`M ${x(0)} ${y(data[0][1])}`, line=`M ${x(0)} ${y(data[0][1])}`;
+  data.forEach((d,i)=>{ if(i>0){ area+=` L ${x(i)} ${y(d[1])}`; line+=` L ${x(i)} ${y(d[1])}`; } });
+  area+=` L ${x(data.length-1)} ${y(0)} L ${x(0)} ${y(0)} Z`;
+  svg.insertAdjacentHTML("beforeend",`<defs><linearGradient id="ag" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--teal)" stop-opacity=".28"/><stop offset="1" stop-color="var(--teal)" stop-opacity="0"/></linearGradient></defs>`);
+  svg.insertAdjacentHTML("beforeend",`<path d="${area}" fill="url(#ag)"/>`);
+  svg.insertAdjacentHTML("beforeend",`<path d="${line}" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`);
+  // x labels (sparse)
+  [0,8,12,18,23,28,31].forEach(i=>{ if(data[i]) svg.insertAdjacentHTML("beforeend",`<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${data[i][0]}</text>`); });
+  // hover
+  const focus=document.createElementNS(svgns,"g"); focus.style.opacity=0;
+  focus.innerHTML=`<line y1="${pad.t}" y2="${pad.t+ih}" stroke="var(--ink-2)" stroke-width="1" stroke-dasharray="3 3"/><circle r="4.5" fill="var(--teal)" stroke="var(--bg)" stroke-width="2"/>`;
+  svg.appendChild(focus);
+  el.appendChild(svg);
+  const tip=mkTip(el);
+  const hit=document.createElementNS(svgns,"rect"); hit.setAttribute("x",pad.l); hit.setAttribute("y",pad.t); hit.setAttribute("width",iw); hit.setAttribute("height",ih); hit.setAttribute("fill","transparent"); svg.appendChild(hit);
+  svg.addEventListener("mousemove",e=>{
+    const r=svg.getBoundingClientRect(); const rel=(e.clientX-r.left)/r.width*W;
+    let i=Math.round((rel-pad.l)/iw*(data.length-1)); i=Math.max(0,Math.min(data.length-1,i));
+    const d=data[i]; focus.style.opacity=1; focus.querySelector("line").setAttribute("x1",x(i)); focus.querySelector("line").setAttribute("x2",x(i));
+    focus.querySelector("circle").setAttribute("cx",x(i)); focus.querySelector("circle").setAttribute("cy",y(d[1]));
+    const html=`<b>${d[0]}</b><br>Spend ${INR(d[1])}<br>CTR ${d[2].toFixed(2)}%<br>ROAS ${d[3]==null?'n/a':d[3].toFixed(2)+'×'}`;
+    showTip(tip, el, e, html);
+  });
+  svg.addEventListener("mouseleave",()=>{ focus.style.opacity=0; hideTip(tip); });
+}
+
+// ---- render ----
+trend("trend", TREND);
+hbars("age", AGE, {color:"var(--teal)"});
+hbars("gender", GENDER, {color:"var(--teal)"});
+hbars("placement", PLACEMENT, {color:"var(--teal)"});
+hbars("device", DEVICE, {color:"var(--teal)"});
+hbars("platform", PLATFORM, {color:"var(--teal)"});
+hbars("geo", GEO.map(g=>[g[0],g[1],undefined,null]), {roas:false, color:"var(--blue)"});
+
+// ---- theme toggle ----
+const root=document.documentElement;
+document.getElementById("themeToggle").addEventListener("click",()=>{
+  const cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  root.setAttribute("data-theme", cur==="dark"?"light":"dark");
+});
 </script>
 </body>
 </html>
