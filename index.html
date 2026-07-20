@@ -135,7 +135,7 @@
   </header>
 
   <div class="scope">
-    <b>Scope:</b> Headline metric is <b>blended MER</b> = all corelle.co.in revenue since a campaign's start ÷ ad spend over that period (assumes all site revenue is marketing-driven). Site revenue is live from Shopify (292 orders / 90d); Meta's platform ROAS is shown only as a secondary optimisation signal. Live campaign metrics as of <b>12 Jul 2026</b> (90-day baseline: 11 Apr – 9 Jul).
+    <b>Scope:</b> Headline metric is <b>blended MER</b> = all corelle.co.in revenue since a campaign's start ÷ ad spend over that period (assumes all site revenue is marketing-driven). Site revenue is live from Shopify (292 orders / 90d); Meta's platform ROAS is shown only as a secondary optimisation signal. Shopify revenue is live to <b>20 Jul 2026</b>; Meta spend/ROAS metrics were last verified <b>12 Jul</b> (connector recovering). 90-day baseline: 11 Apr – 9 Jul.
   </div>
 
   <h2>Campaign Split — Monsoon Mania vs Mother's Day</h2>
@@ -168,7 +168,14 @@
     </div>
   </div>
 
-  <h2>Monsoon Mania — Engine Breakdown</h2>
+  <h2>Monsoon Mania — Daily Site Revenue <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">— Shopify, live to 20 Jul</span></h2>
+  <div class="card">
+    <h3>₹3.06L in 11 days · 77 orders · AOV ₹3,972</h3>
+    <p class="cap">Total store revenue by day since launch (Shopify, all channels blended). Peaked 12 &amp; 15 Jul, now holding ~₹24K/day. AOV has climbed ₹2,967 → ₹3,972 — the gift tiers are pulling bigger baskets. Hover a bar for the day.</p>
+    <div class="rows" id="mmrev"></div>
+  </div>
+
+  <h2>Monsoon Mania — Engine Breakdown <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">— Meta, as of 12 Jul</span></h2>
   <div class="grid2">
     <div class="card cmp">
       <div class="cmp-h"><span class="pill">Image engine · 5 creatives</span><span class="cmp-date">from 10 Jul · Day 3</span></div>
@@ -341,7 +348,7 @@ function hbars(id, rows, opt){
     const fill = div.querySelector(".fill");
     requestAnimationFrame(()=>{ fill.style.width = pct+"%"; });
     div.addEventListener("mousemove", e=>{
-      const parts = [`<b>${lbl}</b>`, `Spend ${INR(val)}`];
+      const parts = [`<b>${lbl}</b>`, `${opt.valLabel||'Spend'} ${INR(val)}`];
       if(ctr!=null) parts.push(`CTR ${ctr.toFixed(2)}%`);
       if(opt.roas!==false) parts.push(`ROAS ${roasTxt(roas)}`);
       showTip(tip, el, e, parts.join("<br>"));
@@ -408,6 +415,8 @@ hbars("platform", PLATFORM, {color:"var(--teal)"});
 hbars("geo", GEO.map(g=>[g[0],g[1],undefined,null]), {roas:false, color:"var(--blue)"});
 const MMADS=[["Morning Blue",5849,null,7.89],["Plates",686,null,6.54],["Samosa",520,null,5.73],["Maggi",304,null,5.25],["Momos",53,null,9.79]];
 hbars("mmads", MMADS, {roas:false, pill:'ctr', color:"var(--teal)"});
+const MMREV=[["10 Jul",17576],["11 Jul",22944],["12 Jul",63225],["13 Jul",28389],["14 Jul",12259],["15 Jul",48027],["16 Jul",25603],["17 Jul",23950],["18 Jul",11534],["19 Jul",23976],["20 Jul",28395]];
+hbars("mmrev", MMREV.map(r=>[r[0],r[1],undefined,null]), {roas:false, valLabel:"Revenue", color:"var(--amber)"});
 
 // ---- theme toggle ----
 const root=document.documentElement;
